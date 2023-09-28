@@ -1,8 +1,8 @@
 package main
 
-import "fmt"
+import "github.com/Ticolls/remail/email"
 
 func main() {
+	email.Init()
 
-	fmt.Println("start")
 }
