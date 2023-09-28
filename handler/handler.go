@@ -28,7 +28,13 @@ func HandleDailyEmail() {
 
 				todayTasks := utils.GetTodayTasks(tasks)
 
-				message := utils.BuildMessage(todayTasks)
+				var message string
+
+				if len(todayTasks) == 0 {
+					message = "Sem tarefas para hoje!"
+				} else {
+					message = utils.BuildMessage(todayTasks)
+				}
 
 				fmt.Println(message)
 
