@@ -2,28 +2,47 @@ package handler
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/Ticolls/remail/client"
+	"github.com/Ticolls/remail/email"
 	"github.com/Ticolls/remail/utils"
 )
 
-func HandleEmail() {
+func HandleDailyEmail() {
 
-	err, tasks := client.GetTasks()
+	ticker := time.NewTicker(1 * time.Hour)
+	quit := make(chan struct{})
 
-	if err != nil {
-		panic(err)
+	for {
+		select {
+		case <-ticker.C:
+			curentTime := time.Now()
+
+			if curentTime.Hour() == 8 {
+				err, tasks := client.GetTasks()
+
+				if err != nil {
+					panic(err)
+				}
+
+				todayTasks := utils.GetTodayTasks(tasks)
+
+				message := utils.BuildMessage(todayTasks)
+
+				fmt.Println(message)
+
+				err = email.SendEmail("Tarefas do dia", message)
+
+				if err != nil {
+					panic(err)
+				}
+			}
+
+		case <-quit:
+			ticker.Stop()
+			return
+		}
 	}
 
-	todayTasks := utils.GetTodayTasks(tasks)
-
-	message := utils.BuildMessage(todayTasks)
-
-	fmt.Println(message)
-
-	// err = email.SendEmail("Tarefas do dia", message)
-
-	if err != nil {
-		panic(err)
-	}
 }
