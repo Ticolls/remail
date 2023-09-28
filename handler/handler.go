@@ -53,11 +53,7 @@ func sendTodayTasks(tasks *[]models.Task) error {
 	if len(todayTasks) == 0 {
 		message = "Sem tarefas para hoje!"
 	} else {
-		err, message = utils.BuildMessage(todayTasks)
-
-		if err != nil {
-			return errors.New("Erro construindo mensagem.")
-		}
+		message = utils.BuildMessage(todayTasks)
 	}
 
 	err = email.SendEmail("Tarefas do dia", message)
