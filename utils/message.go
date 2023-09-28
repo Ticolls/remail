@@ -4,10 +4,11 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/Ticolls/remail/client"
 	"github.com/Ticolls/remail/models"
 )
 
-func BuildMessage(tasks []models.Task) string {
+func BuildMessage(tasks []models.Task) (error, string) {
 	var message string
 
 	for i, task := range tasks {
@@ -19,8 +20,15 @@ func BuildMessage(tasks []models.Task) string {
 			hour := strings.Split(task.Due.Datetime, "T")[1]
 			message = message + fmt.Sprintf("Horário: %s\n", hour)
 		}
+		err, project := client.GetProject(task.ProjectId)
+
+		if err != nil {
+			return err, ""
+		}
+
+		message = message + fmt.Sprintf("Project: %s\n", project.Name)
 		message = message + "\n"
 	}
 
-	return message
+	return nil, message
 }

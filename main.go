@@ -20,7 +20,6 @@ func main() {
 	}
 
 	fmt.Println("Everything is ok, handling email...")
-
 	handler.Init(tasks)
 
 	// for _, task := range tasks {
