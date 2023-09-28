@@ -28,6 +28,11 @@ func BuildMessage(tasks []models.Task) string {
 			message = message + fmt.Sprintf("Project: %s\n", project.Name)
 		}
 
+		err, section := client.GetSection(task.SectionId)
+		if err == nil {
+			message = message + fmt.Sprintf("Section: %s\n", section.Name)
+		}
+
 		message = message + "\n"
 	}
 

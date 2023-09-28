@@ -14,7 +14,7 @@ func Init(tasks *[]models.Task) {
 	for {
 		curentTime := time.Now()
 
-		if curentTime.Hour() == 14 && curentTime.Minute() == 18 {
+		if curentTime.Hour() == 14 && curentTime.Minute() == 27 {
 			fmt.Println("São 14 horas.")
 			EmailTaskHandler(tasks)
 		}
