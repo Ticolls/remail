@@ -6,7 +6,7 @@ import (
 	"github.com/Ticolls/remail/models"
 )
 
-func GetTasks() (error, []models.Task) {
+func GetTasks() (error, *[]models.Task) {
 	url := "https://api.todoist.com/rest/v2/tasks"
 
 	var tasks []models.Task
@@ -18,5 +18,5 @@ func GetTasks() (error, []models.Task) {
 		return err, nil
 	}
 
-	return nil, tasks
+	return nil, &tasks
 }
