@@ -8,6 +8,10 @@ import (
 
 func GetSection(id string) (error, *models.Section) {
 
+	if id == "" {
+		return nil, nil
+	}
+
 	url := fmt.Sprintf("https://api.todoist.com/rest/v2/sections/%s", id)
 
 	var section models.Section

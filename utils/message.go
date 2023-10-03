@@ -9,6 +9,7 @@ import (
 )
 
 func BuildMessage(tasks []models.Task) string {
+
 	var message string
 
 	for i, task := range tasks {
@@ -29,7 +30,7 @@ func BuildMessage(tasks []models.Task) string {
 		}
 
 		err, section := client.GetSection(task.SectionId)
-		if err == nil {
+		if err == nil && section != nil{
 			message = message + fmt.Sprintf("Section: %s\n", section.Name)
 		}
 
