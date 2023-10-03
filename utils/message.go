@@ -2,36 +2,29 @@ package utils
 
 import (
 	"fmt"
-	"strings"
 
-	"github.com/Ticolls/remail/client"
 	"github.com/Ticolls/remail/models"
 )
 
-func BuildMessage(tasks []models.Task) string {
+func BuildMessage(tasks []models.EmailTask) string {
 
 	var message string
 
 	for i, task := range tasks {
-		message = message + fmt.Sprintf("tarefa %d: %s\n", i+1, task.Content)
+
+		message = message + fmt.Sprintf("tarefa %d: %s\n", i+1, task.Name)
 
 		if task.Description != "" {
 			message = message + fmt.Sprintf("Descrição: %s\n", task.Description)
 		}
-
-		if task.Due.Datetime != "" {
-			hour := strings.Split(task.Due.Datetime, "T")[1]
-			message = message + fmt.Sprintf("Horário: %s\n", hour)
+		if task.Hour != "" {
+			message = message + fmt.Sprintf("Horário: %s\n", task.Hour)
 		}
-
-		err, project := client.GetProject(task.ProjectId)
-		if err == nil {
-			message = message + fmt.Sprintf("Project: %s\n", project.Name)
+		if task.ProjectName != "" {
+			message = message + fmt.Sprintf("Project: %s\n", task.ProjectName)
 		}
-
-		err, section := client.GetSection(task.SectionId)
-		if err == nil && section != nil{
-			message = message + fmt.Sprintf("Section: %s\n", section.Name)
+		if task.SectionName != "" {
+			message = message + fmt.Sprintf("Section: %s\n", task.SectionName)
 		}
 
 		message = message + "\n"

@@ -33,3 +33,11 @@ type Task struct {
 	ParentId     string   `json:"parent_id"`
 	Url          string   `json:"url"`
 }
+
+type EmailTask struct {
+	Name        string
+	Description string
+	Hour        string
+	ProjectName string
+	SectionName string
+}
