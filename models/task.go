@@ -1,5 +1,7 @@
 package models
 
+import "strings"
+
 type due struct {
 	Date        string `json:"date"`
 	IsRecurring bool   `json:"is_recurring"`
@@ -40,4 +42,34 @@ type EmailTask struct {
 	Hour        string
 	ProjectName string
 	SectionName string
+}
+
+func NewEmailTask(task *Task, project *Project, section *Section) *EmailTask {
+	var (
+		hour        string
+		projectName string
+		sectionName string
+	)
+
+	if task.Due.Datetime != "" {
+		hour = strings.Split(task.Due.Datetime, "T")[1]
+	}
+
+	if project != nil {
+		projectName = project.Name
+	}
+
+	if section != nil {
+		sectionName = section.Name
+	}
+
+	emailTask := EmailTask{
+		Name:        task.Content,
+		Description: task.Description,
+		Hour:        hour,
+		ProjectName: projectName,
+		SectionName: sectionName,
+	}
+
+	return &emailTask
 }
