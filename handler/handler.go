@@ -14,7 +14,7 @@ func Init() {
 	for {
 		curentTime := time.Now()
 
-		if curentTime.Hour() == 21 && curentTime.Minute() == 0 {
+		if curentTime.Hour() == 7 && curentTime.Minute() == 0 {
 			fmt.Println("São 7 horas.")
 
 			EmailTaskHandler()
