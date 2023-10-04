@@ -85,7 +85,9 @@ func sendRememberTask(tasks *[]models.Task) error {
 
 				message = utils.BuildRememberMessage(*emailTask)
 
-				if (hour-hourNow) == 1 && (minute-minuteNow) == 0 {
+				if (hour-hourNow) == 0 && (minute-minuteNow) == 0 {
+					subject = fmt.Sprintf("Tarefa para agora: %s", emailTask.Name)
+				} else if (hour-hourNow) == 1 && (minute-minuteNow) == 0 {
 					subject = fmt.Sprintf("1 hora para a tarefa: %s", emailTask.Name)
 				} else if (hour-hourNow) == 0 && minute > minuteNow {
 					subject = fmt.Sprintf("%d minutos para a tarefa: %s", (minute - minuteNow), emailTask.Name)
